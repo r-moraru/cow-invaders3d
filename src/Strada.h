@@ -31,31 +31,27 @@ public:
 	void draw() {
 		// asfalt
 		glColor3f(0.2, 0.2, 0.2);
-		glRectf(0., 0., Screen::get_width(), Screen::get_height());
+		glBegin(GL_QUADS);
+		glVertex3d(-2, 0, -100);
+		glVertex3d(-2, 0, 5);
+		glVertex3d(2, 0, 5);
+		glVertex3d(2, 0, -100);
+		glEnd();
 
 		// iarba
 		glColor3f(0, 0.4, 0);
-		glRectf(0., 0., Screen::get_width() / 5, Screen::get_height());
-		glRectf(4 * Screen::get_width() / 5, 0., Screen::get_width(), Screen::get_height());
-
-		// banda de separare
-		glPushMatrix();
-		glTranslated(0, -poz_banda, 0);
-
-		glColor3f(1, 1, 1);
-
-		glEnable(GL_LINE_STIPPLE);
-		glLineWidth(20);
-		glLineStipple(7, 0xFFFC);
-
-		glBegin(GL_LINES);
-
-		glVertex2d(Screen::get_width() / 2.0, 0);
-		glVertex2d(Screen::get_width() / 2.0, Screen::get_height() + 7 * 16);
-
+		glBegin(GL_QUADS);
+		glVertex3d(-2, 0, -100);
+		glVertex3d(-2, 0, 5);
+		glVertex3d(-100, 0, 5);
+		glVertex3d(-100, 0, -100);
 		glEnd();
-
-		glPopMatrix();
+		glBegin(GL_QUADS);
+		glVertex3d(2, 0, -100);
+		glVertex3d(2, 0, 5);
+		glVertex3d(100, 0, 5);
+		glVertex3d(100, 0, -100);
+		glEnd();
 	}
 
 	void update() {
