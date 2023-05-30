@@ -3,6 +3,7 @@
 #include <ctime>
 #include <vector>
 #include <random>
+#include <cmath>
 
 #include "Object.h"
 #include "Cow.h"
@@ -14,7 +15,34 @@
 
 using namespace std;
 
+double distanta_puncte(Point& p1, Point& p2) {
+	return sqrt(
+		(p1.getX() - p2.getX()) * (p1.getX() - p2.getX()) +
+		(p1.getZ() - p2.getZ()) * (p1.getZ() - p2.getZ()));
+}
+
 bool intersectie_drept_cerc(Point& centru_drept, double w_drept, double l_drept, Point& centru_cerc, double r_cerc) {
+	Point p1(centru_drept);
+	p1.setX(p1.getX() + w_drept / 2);
+	p1.setZ(p1.getZ() + l_drept / 2);
+
+	Point p2(centru_drept);
+	p2.setX(p2.getX() - w_drept / 2);
+	p2.setZ(p2.getZ() + l_drept / 2);
+
+	Point p3(centru_drept);
+	p3.setX(p3.getX() + w_drept / 2);
+	p3.setZ(p3.getZ() - l_drept / 2);
+
+	Point p4(centru_drept);
+	p4.setX(p4.getX() - w_drept / 2);
+	p4.setZ(p4.getZ() - l_drept / 2);
+
+	if (distanta_puncte(p1, centru_cerc) <= 0.3) return true;
+	if (distanta_puncte(p2, centru_cerc) <= 0.3) return true;
+	if (distanta_puncte(p3, centru_cerc) <= 0.3) return true;
+	if (distanta_puncte(p4, centru_cerc) <= 0.3) return true;
+	
 	return false;
 }
 

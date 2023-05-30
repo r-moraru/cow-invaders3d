@@ -67,10 +67,10 @@ public:
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
         glBegin(GL_QUADS);
-        glTexCoord2f(0.0f, 1.0f); glVertex3f(skyboxSize, -skyboxSize, -skyboxSize);
-        glTexCoord2f(1.0f, 1.0f); glVertex3f(-skyboxSize, -skyboxSize, -skyboxSize);
-        glTexCoord2f(1.0f, 0.0f); glVertex3f(-skyboxSize, skyboxSize, -skyboxSize);
-        glTexCoord2f(0.0f, 0.0f); glVertex3f(skyboxSize, skyboxSize, -skyboxSize);
+        glTexCoord2f(0.0f, 1.0f); glVertex3f(skyboxSize + Scene::camera_x_pos, -skyboxSize, -skyboxSize);
+        glTexCoord2f(1.0f, 1.0f); glVertex3f(-skyboxSize + Scene::camera_x_pos, -skyboxSize, -skyboxSize);
+        glTexCoord2f(1.0f, 0.0f); glVertex3f(-skyboxSize + Scene::camera_x_pos, skyboxSize, -skyboxSize);
+        glTexCoord2f(0.0f, 0.0f); glVertex3f(skyboxSize + Scene::camera_x_pos, skyboxSize, -skyboxSize);
         glEnd();
 
 
