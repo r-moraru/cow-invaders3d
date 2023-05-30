@@ -38,7 +38,7 @@ void main(int argc, char **argv)
     // shared_ptr<Cows> cows = make_shared<Cows>(Cows());
     // // shared_ptr<Line> line1 = make_shared<Line>(Line(Screen::get_width() / 2, 0, Screen::get_width() / 2, Screen::get_height() / 2));
 
-    shared_ptr<Pahar> pahar = make_shared<Pahar>(Pahar(0, 0, -5));
+    shared_ptr<Pahar> pahar = make_shared<Pahar>(Pahar(0, 0, -1));
     // shared_ptr<Cow> cow1 = make_shared<Cow>(Cow(150, 150, 0, 1, 1, 1, false, 5));
     // shared_ptr<Cow> cow2 = make_shared<Cow>(Cow(450, 450, 0, 0, 0, 0, true, 10));
 
