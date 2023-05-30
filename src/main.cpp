@@ -41,12 +41,13 @@ void main(int argc, char **argv)
     // shared_ptr<Cow> cow1 = make_shared<Cow>(Cow(150, 150, 0, 1, 1, 1, false, 5));
     // shared_ptr<Cow> cow2 = make_shared<Cow>(Cow(450, 450, 0, 0, 0, 0, true, 10));
     shared_ptr<Cow> cow = make_shared<Cow>(Cow(-1, 0.5, 0, 0, 1, 1, 1, true, 1));
+    shared_ptr<Cow> cow2 = make_shared<Cow>(Cow(1, 0.5, 2, 0, 0.0, 0.0, 1, false, 0));
 
     Scene::add_object("strada", strada);
     Scene::add_object("cow", cow);
     // Scene::add_object("tcows", cows);
     Scene::add_object("zahar", pahar);
-    Scene::add_object("cow", cow);
+    Scene::add_object("cow2", cow2);
 
     Scene::add_object("zzz", hbar);
 
