@@ -26,12 +26,11 @@ public:
 	}
 
 	void update() {
-		/*
 		spawn_cow();
 		for (auto& cow : cows) {
 			cow.update();
 		}
-		
+		/*
 		for (int i = cows.size() - 1; i >= 0; i--) {
 			if (cows[i].get_pos().getY() < -100) {
 				cows.erase(cows.begin()+i);
@@ -60,7 +59,7 @@ public:
 							pahar->fill = 0;
 							healthbar->scor += 25;
 							Scene::lvl += 1;
-							Scene::movement_speed += 0.1;
+							Scene::movement_speed += 0.001;
 						}
 						pahar->fill += 1;
 						healthbar->scor += cows[i].marime;
@@ -82,13 +81,14 @@ public:
 			return;
 		}
 
-		int spawn_pos = rand() % (Screen::get_width() - 50) + 50;
+		double spawn_pos = (rand() % 101 - 50) / 25.0;
+
 		spawn_wait = rand() % 3000 + 1000 - 90 * max(10, Scene::lvl);
 
 		last_spawn = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
 
-		cows.push_back(Cow(spawn_pos, Screen::get_height()+100.0,0, 0,
+		cows.push_back(Cow(spawn_pos, 0.5, -50, 0,
 			(rand() % 100) / 99.0, (rand() % 100) / 99.0, (rand() % 100) / 99.0,
-			rand() % 4 == 0 ? true : false, rand() % 4 + 3));
+			(rand() % 4 == 0 ? true : false), 1));
 	}
 };

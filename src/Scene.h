@@ -142,7 +142,7 @@ public:
 };
 
 map<string, shared_ptr<Object>> Scene::objects;
-double Scene::movement_speed = 0.25;
+double Scene::movement_speed = 0.005;
 bool Scene::playing = TRUE;
 int Scene::lvl = 1;
 double Scene::camera_x_pos = 0;
