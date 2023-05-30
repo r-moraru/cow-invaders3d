@@ -65,6 +65,8 @@ public:
 
             glEnable(GL_LIGHTING);
             glEnable(GL_LIGHT0);
+            GLfloat light_position[] = { 0.0, 100.0, 100.0, 0.0 };
+            glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 
             for (auto& object : objects)
             {
