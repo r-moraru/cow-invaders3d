@@ -73,6 +73,7 @@ public:
 			if (intersectie_drept_cerc(cows[i].centru, 0.3, 1, pahar->centru, 0.3)) {
 				shared_ptr<Healthbar> healthbar = dynamic_pointer_cast<Healthbar>(Scene::get_object("zzz"));
 				if (cows[i].has_red_eyes()) {
+					PlaySound(TEXT("aah.wav"), NULL, SND_ASYNC);
 					if (healthbar->hp.size() == 0) {
 						return;
 					}
@@ -80,10 +81,12 @@ public:
 					// licu-> am facut dar foarte prost scuze
 					healthbar->hp.pop_back();
 					if (!healthbar->hp.size()) {
+						PlaySound(TEXT("oohmygod.wav"), NULL, SND_ASYNC);
 						Scene::playing = FALSE;
 					}
 				}
 				else {
+					PlaySound(TEXT("moo.wav"), NULL, SND_ASYNC);
 					if (pahar->fill == 10) {
 						pahar->fill = 0;
 						healthbar->scor += 25;
