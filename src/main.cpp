@@ -30,7 +30,9 @@ void main(int argc, char **argv)
     glutInit(&argc, argv);
     init();
     Cow::init();
-    shared_ptr<Healthbar> hbar = make_shared<Healthbar>(Healthbar(-2.5, 2.7, 0));
+    init();
+
+    shared_ptr<Healthbar> hbar = make_shared<Healthbar>(Healthbar(-0.35, 2.5, 0));
 
     shared_ptr<Strada> strada = make_shared<Strada>(Strada(0));
 

@@ -28,7 +28,11 @@ public:
         // glScaled(0.3, 0.3, 1);
         glRotated(angle, 0, 0, 1);
 
+        GLfloat culoare_hamburger[] = {1.0, 0, 0.0, 1.0};
+        GLfloat culoare_hamburger_diffuse[] = { 1.0, 1, 1, 0.1 };
         glColor3f(1.0, 0.8, 0.0);
+        glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, culoare_hamburger);
+        glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, culoare_hamburger_diffuse);
         glutSolidSphere(0.15, 20, 20);
 
         glPopMatrix();

@@ -30,7 +30,10 @@ public:
 
 	void draw() {
 		// asfalt
-		glColor3f(0.2, 0.2, 0.2);
+		GLfloat culoare_asfalt[] = { 0.06, 0.06, 0.06, 0.1 };
+		glColor3f(0.1, 0.1, 0.1);
+		glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, culoare_asfalt);
+		glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, culoare_asfalt);
 		glBegin(GL_QUADS);
 		glVertex3d(-2, 0, -100);
 		glVertex3d(-2, 0, 5);
@@ -39,7 +42,10 @@ public:
 		glEnd();
 
 		// iarba
-		glColor3f(0, 0.4, 0);
+		GLfloat culoare_iarba[] = { 0, 0.25, 0.0, 0.3 };
+		glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, culoare_iarba);
+		glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, culoare_iarba);
+		glColor3f(0, 1, 0);
 		glBegin(GL_QUADS);
 		glVertex3d(-2, 0, -100);
 		glVertex3d(-2, 0, 5);
