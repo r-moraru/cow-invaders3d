@@ -42,19 +42,25 @@ public:
     double fall_acceleration;
     int fill;
 
-    Pahar(double x, double y, double z) : centru(x, y, z), jump_height(0), fill(0), max_jump_speed(0.25),
-                                jump_speed(0.25), fall_acceleration(0.0001), x_speed(0) { ; }
+    Pahar(double x, double y, double z) : centru(x, y, z), jump_height(0), fill(0), max_jump_speed(0.0025),
+                                jump_speed(0.0025), fall_acceleration(0.00001), x_speed(0) { ; }
 
     void draw()
     {
         glPushMatrix();
 
         glTranslated(centru.getX(), centru.getY() + jump_height, centru.getZ());
+        glRotated(-90, 1.0f, 0.0f, 0.0f);
+
+        // milk
+        glDisable(GL_BLEND);
+        glColor4f(1.0, 1.0, 1.0, 0.93);
+        glutSolidCylinder(0.45f, this->fill * 0.25f, 20, 1);
+
+        // glass
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
         glColor4f(208 / 255.0, 250 / 255.0, 249 / 255.0, 0.7);
-        glRotated(90, 1.0f, 0.0f, 0.0f);
         glutSolidCylinder(0.5f, 2.5f, 20, 1);
 
         glPopMatrix();
