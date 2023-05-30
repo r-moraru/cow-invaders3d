@@ -39,11 +39,14 @@ public:
 	void draw()
 	{
 
-		GLfloat culoare_primita[] = { culoareR, culoareG, culoareB, 0.1 };
+		GLfloat culoare_primita[] = { 1, 1, 1, 0.5 };
+		GLfloat culoare_negru[] = { 0, 0, 0, 1 };
 		GLfloat culoare_rosu[] = { 1.0, 0.0, 0.0, 0.1 };
 
 		glPushMatrix();
-		glMaterialfv(GL_BACK, GL_EMISSION, culoare_primita);
+		glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, culoare_primita);
+		glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, culoare_primita);
+		glColor3f(1, 1, 1);
 		//body
 		glTranslated(centru.getX(), centru.getY() + 0.4, centru.getZ());
 		glScalef(0.3, 0.4, 1);
@@ -51,7 +54,8 @@ public:
 		glPopMatrix();
 		//head
 		glPushMatrix();
-		glColor3f(culoareR, 0, culoareB);
+		glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, culoare_negru);
+		glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, culoare_negru);
 		glTranslated(centru.getX(), centru.getY() + 0.65, centru.getZ() + 0.6);
 		glScalef(0.2, 0.2, 0.4);
 		glutSolidCube(marime);
@@ -98,7 +102,12 @@ public:
 		//horns 1
 		glPushMatrix();
 		if (ochi_rosu) {
-			glMaterialfv(GL_FRONT, GL_DIFFUSE, culoare_rosu);
+			glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, culoare_rosu);
+			glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, culoare_rosu);
+		}
+		else {
+			glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, culoare_primita);
+			glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, culoare_primita);
 		}
 		glTranslated(centru.getX(), centru.getY() + 0.85, centru.getZ() + 0.6);
 		glScalef(0.1, 0.1, 0.1);
