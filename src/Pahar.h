@@ -10,6 +10,10 @@
 #include <cmath>
 #include <fstream>
 #include "Point.h"
+#include <algorithm>
+#include <cstdint>
+#include <iomanip>
+#include <iostream>
 #include "Screen.h"
 using namespace std;
 
@@ -38,8 +42,8 @@ public:
     double fall_acceleration;
     int fill;
 
-    Pahar(double x, double y, double z) : centru(x, y, z), jump_height(0), fill(0), max_jump_speed(0.3),
-                                jump_speed(0.3), fall_acceleration(0.0015), x_speed(0) { ; }
+    Pahar(double x, double y, double z) : centru(x, y, z), jump_height(0), fill(0), max_jump_speed(0.25),
+                                jump_speed(0.25), fall_acceleration(0.0001), x_speed(0) { ; }
 
     void draw()
     {
@@ -58,7 +62,6 @@ public:
 
     void update()
     {
-        /*
         if (jump_height <= 0)
         {
             jump_speed = max_jump_speed;
@@ -73,17 +76,10 @@ public:
         jump_height += jump_speed * delta_time;
         jump_speed -= fall_acceleration * delta_time;
 
-        centru.setX(centru.getX() + x_speed * delta_time);
+        double new_x = centru.getX() + x_speed * delta_time;
+        new_x = clamp(new_x, (double) 1.0, (double) Screen::get_width());
+        centru.setX(new_x);
 
-        if (centru.getX() < 50)
-        {
-            centru.setX(50);
-        }
-
-        if (centru.getX() > Screen::get_width())
-        {
-            centru.setX(Screen::get_width());
-        }*/
     }
 
     void mouse(int button, int state, int x, int y) { ; }
