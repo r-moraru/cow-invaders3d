@@ -109,19 +109,21 @@ public:
             // super urat, imi cer scuze la domnul programator
             shared_ptr<Healthbar> healthbar = dynamic_pointer_cast<Healthbar>(Scene::get_object("zzz"));
             char str[20];
+            glColor3f(1.0, 1.0, 1.0);
             snprintf(str, sizeof(str), "SCORE: %d", healthbar->scor);
-            Scene::displayText(healthbar->centru.getX() - 15, healthbar->centru.getY() - 50, str);
+            Scene::displayText(10, Screen::get_height()-32, str);
 
             snprintf(str, sizeof(str), "LEVEL: %d", lvl);
-            Scene::displayText(healthbar->centru.getX() - 15, healthbar->centru.getY() - 75, str);
+            Scene::displayText(10, Screen::get_height() - 64, str);
         }
         else {
             glClearColor(0, 0, 0, 1);
+            glColor3f(1.0, 0.1, 0.1);
             Scene::displayText(Screen::get_width() / 2 - 50, Screen::get_height() / 2, "YOU DIED");
             shared_ptr<Healthbar> healthbar = dynamic_pointer_cast<Healthbar>(Scene::get_object("zzz"));
             char str[20];
             snprintf(str, sizeof(str), "SCORE: %d", healthbar->scor);
-            Scene::displayText(Screen::get_width() / 2 - 50, Screen::get_height() / 2 - 50, str);
+            Scene::displayText(0, 0, str);
         }
 
         glutSwapBuffers();
@@ -163,13 +165,26 @@ public:
     }
 
 
-    static void displayText(int x, int y, const char* string)
-    {
-        glColor4f(1.0f, 1.0f, 1.0f, 0.8);
+    static void displayText(float x, float y, const char* text) {
+        glMatrixMode(GL_PROJECTION);
+        glPushMatrix();
+        glLoadIdentity();
+        glOrtho(0, glutGet(GLUT_WINDOW_WIDTH), 0, glutGet(GLUT_WINDOW_HEIGHT), -1, 1);
+
+        glMatrixMode(GL_MODELVIEW);
+        glPushMatrix();
+        glLoadIdentity();
+
         glRasterPos2f(x, y);
-        for (int i = 0; i < strlen(string); i++) {
-            glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, string[i]);
+
+        for (int i = 0; i < strlen(text); i++) {
+            glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, text[i]);
         }
+
+        glPopMatrix();
+        glMatrixMode(GL_PROJECTION);
+        glPopMatrix();
+        glMatrixMode(GL_MODELVIEW);
     }
 
 };
