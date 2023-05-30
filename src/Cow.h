@@ -17,7 +17,6 @@ using namespace std;
 class Cow : public Object
 {
 public:
-
 	Point centru;
 	double unghi_rotatie;
 	int marime;
@@ -53,11 +52,11 @@ public:
 		glScalef(0.1, 0.1, 0.2);
 		glutSolidCube(marime);
 
-
 		glPopMatrix();
 	}
 
-	void update() {
+	void update()
+	{
 		/*
 		using namespace std::chrono;
 		uint64_t current_time = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
@@ -69,15 +68,15 @@ public:
 		*/
 	}
 
-	Point get_pos() {
+	Point get_pos()
+	{
 		return centru;
 	}
 
-	bool has_red_eyes() {
+	bool has_red_eyes()
+	{
 		return ochi_rosu;
 	}
 
-
 	void mouse(int button, int state, int x, int y) { ; }
 };
-
