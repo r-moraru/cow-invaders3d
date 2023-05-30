@@ -59,5 +59,13 @@ void main(int argc, char **argv)
 
     glEnable(GL_DEPTH_TEST);
 
+    Scene::background = SOIL_load_OGL_texture
+    (
+        "background.png",
+        SOIL_LOAD_RGBA,
+        SOIL_CREATE_NEW_ID,
+        SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_MIPMAPS
+    );
+
     glutMainLoop();
 }

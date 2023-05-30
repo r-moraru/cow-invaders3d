@@ -8,6 +8,7 @@
 #include <map>
 #include <exception>
 #include <cmath>
+#include "SOIL.h"
 #include <fstream>
 using namespace std;
 
@@ -41,6 +42,7 @@ public:
 
 int Screen::w, Screen::h;
 
+
 void init(void)
 {
     glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
@@ -50,8 +52,20 @@ void init(void)
     Screen::set_width(800);
     Screen::set_height(600);
 
+
+    glEnable(GL_TEXTURE_2D);
     glClearColor(0.0, 0.0, 0.0, 1);
+    
     glMatrixMode(GL_MODELVIEW);
+
+    glEnable(GL_FOG);
+    GLfloat fogColor[] = { 0.5, 0.5, 0.5, 0.1 };
+    glFogfv(GL_FOG_COLOR, fogColor);
+    glFogi(GL_FOG_MODE, GL_EXP);
+    glFogf(GL_FOG_DENSITY, 0.05f);
+    glFogf(GL_FOG_START, 60.0f);
+    glFogf(GL_FOG_END, 150.0f);
+
 }
 
 void reshape(int w, int h)

@@ -24,6 +24,7 @@ public:
     static bool playing;
 
     static double camera_x_pos;
+    static GLuint background;
 
     static void add_object(const string name, shared_ptr<Object> obj)
     {
@@ -45,6 +46,39 @@ public:
         }
     }
 
+    static void drawSky(void) {
+        
+        glPushMatrix();
+        // Enable/Disable features
+        glPushAttrib(GL_ENABLE_BIT);
+        glEnable(GL_TEXTURE_2D);
+        glDisable(GL_DEPTH_TEST);
+        glDisable(GL_LIGHTING);
+        glDisable(GL_BLEND);
+
+        // Enable texture filtering
+        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+        float skyboxSize = 10.0f;
+
+        // Render the front quad
+        glBindTexture(GL_TEXTURE_2D, background);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+        glBegin(GL_QUADS);
+        glTexCoord2f(0.0f, 1.0f); glVertex3f(skyboxSize, -skyboxSize, -skyboxSize);
+        glTexCoord2f(1.0f, 1.0f); glVertex3f(-skyboxSize, -skyboxSize, -skyboxSize);
+        glTexCoord2f(1.0f, 0.0f); glVertex3f(-skyboxSize, skyboxSize, -skyboxSize);
+        glTexCoord2f(0.0f, 0.0f); glVertex3f(skyboxSize, skyboxSize, -skyboxSize);
+        glEnd();
+
+
+        // Restore enable bits and matrix
+        glPopAttrib();
+        glPopMatrix();
+    }
+
     static void draw(void)
     {
         float lx = 0.0f, lz = -1.0f;
@@ -52,7 +86,6 @@ public:
         float x = 0.0f, z = 5.0f;
 
         glClear(GL_COLOR_BUFFER_BIT);
-
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glLoadIdentity();
         glMatrixMode(GL_MODELVIEW);
@@ -60,7 +93,7 @@ public:
             camera_x_pos + lx, 1.75f, z + lz,
             0.0f, 1.0f, 0.0f);
 
-
+        drawSky();
         if (playing) {
 
             glEnable(GL_LIGHTING);
@@ -141,8 +174,11 @@ public:
 
 };
 
+
+
 map<string, shared_ptr<Object>> Scene::objects;
 double Scene::movement_speed = 0.005;
 bool Scene::playing = TRUE;
 int Scene::lvl = 1;
 double Scene::camera_x_pos = 0;
+GLuint Scene::background = 0;
