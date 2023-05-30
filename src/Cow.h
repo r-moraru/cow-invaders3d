@@ -21,7 +21,6 @@ public:
 	Point centru;
 	double unghi_rotatie;
 	int marime;
-	static vector<Point> puncte_vaca;
 	double culoareR, culoareG, culoareB;
 	bool ochi_rosu;
 
@@ -78,11 +77,7 @@ public:
 		return ochi_rosu;
 	}
 
-	vector<Point> get_puncte() {
-		return puncte_vaca;
-	}
 
 	void mouse(int button, int state, int x, int y) { ; }
 };
 
-vector<Point> Cow::puncte_vaca = vector<Point>();

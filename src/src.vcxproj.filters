@@ -1033,7 +1033,6 @@
     <Text Include="include\glm\CMakeLists.txt">
       <Filter>Header Files\template-built-ins\glm</Filter>
     </Text>
-    <Text Include="vaca.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="lib\x32\GL\DLLs\freeglut.dll">

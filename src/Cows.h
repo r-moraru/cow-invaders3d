@@ -26,6 +26,7 @@ public:
 	}
 
 	void update() {
+		/*
 		spawn_cow();
 		for (auto& cow : cows) {
 			cow.update();
@@ -69,6 +70,7 @@ public:
 				}
 			}
 		}
+		*/
 	}
 
 	void mouse(int button, int state, int x, int y) { ; }
