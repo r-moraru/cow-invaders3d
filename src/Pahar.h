@@ -42,7 +42,7 @@ public:
     double fall_acceleration;
     int fill;
 
-    Pahar(double x, double y, double z) : centru(x, y, z), jump_height(0), fill(0), max_jump_speed(0.0025),
+    Pahar(double x, double y, double z) : centru(x, y, z), jump_height(0), fill(3), max_jump_speed(0.0025),
                                 jump_speed(0.0025), fall_acceleration(0.00001), x_speed(0) { ; }
 
     void draw()
@@ -55,13 +55,24 @@ public:
         // milk
         glDisable(GL_BLEND);
         glColor4f(1.0, 1.0, 1.0, 0.93);
-        glutSolidCylinder(0.45f, this->fill * 0.25f, 20, 1);
+        GLfloat culoare_lapte[] = {0.7, 0.7, 0.7, 0.1};
+        GLfloat lapte_diffuse[] = { 1.0, 1.0, 1.0, 0.5 };
+        GLfloat lapte_specular[] = { 1.0, 1.0, 1.0, 0.1 };
+
+        glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, culoare_lapte);
+        glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, lapte_diffuse);
+
+        glutSolidCylinder(0.27f, this->fill * 0.12f, 20, 1);
 
         // glass
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-        glColor4f(208 / 255.0, 250 / 255.0, 249 / 255.0, 0.7);
-        glutSolidCylinder(0.5f, 2.5f, 20, 1);
+        glColor4f(208 / 255.0, 250 / 255.0, 249 / 255.0, 1.0);
+        GLfloat culoare_pahar[] = { 208 / 255.0, 250 / 255.0, 249 / 255.0, 1 };
+        glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, culoare_pahar);
+        glutSolidCylinder(0.3f, 1.2f, 20, 1);
+
+        glDisable(GL_BLEND);
 
         glPopMatrix();
     }
@@ -83,23 +94,24 @@ public:
         jump_speed -= fall_acceleration * delta_time;
 
         double new_x = centru.getX() + x_speed * delta_time;
-        new_x = clamp(new_x, (double) 1.0, (double) Screen::get_width());
+        new_x = clamp(new_x, (double) -2.0, (double) 2.0);
         centru.setX(new_x);
 
+        Scene::camera_x_pos = centru.getX();
     }
 
     void mouse(int button, int state, int x, int y) { ; }
 
-    void keyPress(int key, int x, int y, int z)
+    void keyPress(int key, int x, int y)
     {
         switch (key)
         {
         case GLUT_KEY_LEFT:
-            x_speed = -0.2 - 0.02 * Scene::lvl;
+            x_speed = -0.002 - 0.0002 * Scene::lvl;
             break;
         case GLUT_KEY_RIGHT:
-            x_speed = 0.2 + 0.02 * Scene::lvl;
-            break;
+            x_speed = 0.002 + 0.0002 * Scene::lvl;
+              break;
         default:
             break;
         }

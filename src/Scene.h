@@ -14,33 +14,6 @@
 #include "Screen.h"
 using namespace std;
 
-
-void drawSnowMan()
-{
-    glColor3f(1.0f, 1.0f, 1.0f);
-
-    // Draw Body
-    glTranslatef(0.0f, 0.75f, 0.0f);
-    glutSolidSphere(0.75f, 20, 20);
-
-    // Draw Head
-    glTranslatef(0.0f, 1.0f, 0.0f);
-    glutSolidSphere(0.25f, 20, 20);
-
-    // Draw Eyes
-    glPushMatrix();
-    glColor3f(0.0f, 0.0f, 0.0f);
-    glTranslatef(0.05f, 0.10f, 0.18f);
-    glutSolidSphere(0.05f, 10, 10);
-    glTranslatef(-0.1f, 0.0f, 0.0f);
-    glutSolidSphere(0.05f, 10, 10);
-    glPopMatrix();
-
-    // Draw Nose
-    glColor3f(1.0f, 0.5f, 0.5f);
-    glutSolidCone(0.08f, 0.5f, 10, 2);
-}
-
 class Scene
 {
 private:
@@ -49,6 +22,9 @@ public:
     static double movement_speed;
     static int lvl;
     static bool playing;
+
+    static double camera_x_pos;
+
     static void add_object(const string name, shared_ptr<Object> obj)
     {
         objects[name] = obj;
@@ -80,12 +56,16 @@ public:
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glLoadIdentity();
         glMatrixMode(GL_MODELVIEW);
-        gluLookAt(x, 1.0f, z,
-            x + lx, 1.0f, z + lz,
+        gluLookAt(camera_x_pos, 2.0f, z,
+            camera_x_pos + lx, 1.75f, z + lz,
             0.0f, 1.0f, 0.0f);
 
 
         if (playing) {
+
+            glEnable(GL_LIGHTING);
+            glEnable(GL_LIGHT0);
+
             for (auto& object : objects)
             {
                 object.second->draw();
@@ -163,3 +143,4 @@ map<string, shared_ptr<Object>> Scene::objects;
 double Scene::movement_speed = 0.25;
 bool Scene::playing = TRUE;
 int Scene::lvl = 1;
+double Scene::camera_x_pos = 0;
