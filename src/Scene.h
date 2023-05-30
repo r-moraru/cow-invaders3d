@@ -84,14 +84,6 @@ public:
             x + lx, 1.0f, z + lz,
             0.0f, 1.0f, 0.0f);
 
-        for (int i = -3; i < 3; i++)
-            for (int j = -3; j < 3; j++)
-            {
-                glPushMatrix();
-                glTranslatef(i * 10.0, 0, j * 10.0);
-                drawSnowMan();
-                glPopMatrix();
-            }
 
         if (playing) {
             for (auto& object : objects)

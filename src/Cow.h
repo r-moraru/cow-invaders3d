@@ -25,10 +25,11 @@ public:
 	double culoareR, culoareG, culoareB;
 	bool ochi_rosu;
 
-	Cow(double centru_x, double centru_y, double unghi_rotatie, double culoareR, double culoareG, double culoareB, bool ochi_rosu, int marime)
+	Cow(double centru_x, double centru_y, double centru_z, double unghi_rotatie, double culoareR, double culoareG, double culoareB, bool ochi_rosu, int marime)
 	{
 		this->centru.setX(centru_x);
 		this->centru.setY(centru_y);
+		this->centru.setZ(centru_z);
 		this->unghi_rotatie = unghi_rotatie;
 		this->culoareR = culoareR;
 		this->culoareG = culoareG;
@@ -42,11 +43,11 @@ public:
 		ifstream vaca_txt("vaca.txt");
 		if (vaca_txt.is_open())
 		{
-			int x, y;
+			int x, y, z = 0;
 			while (vaca_txt)
 			{
 				vaca_txt >> x >> y;
-				puncte_vaca.push_back(Point(x, y));
+				puncte_vaca.push_back(Point(x, y, z));
 			}
 			vaca_txt.close();
 		}

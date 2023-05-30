@@ -13,18 +13,19 @@
 #include "Screen.h"
 using namespace std;
 
-double arie_triunghi(Point& A, Point& B, Point& C) {
-    return abs(A.getX() * B.getY() + B.getX() * C.getY() + C.getX() * A.getY()
-        - C.getX() * B.getY() - B.getX() * A.getY() - A.getX() * C.getY()) / 2.0;
+double arie_triunghi(Point &A, Point &B, Point &C)
+{
+    return abs(A.getX() * B.getY() + B.getX() * C.getY() + C.getX() * A.getY() - C.getX() * B.getY() - B.getX() * A.getY() - A.getX() * C.getY()) / 2.0;
 }
-bool punct_in_triunghi(Point& A, Point& B, Point& C, Point& D) {
+bool punct_in_triunghi(Point &A, Point &B, Point &C, Point &D)
+{
     return abs(arie_triunghi(A, B, D) + arie_triunghi(A, C, D) + arie_triunghi(B, C, D) - arie_triunghi(A, B, C)) < 1;
 }
 
-bool punct_in_dreptunghi(Point& A, Point& B, Point& C, Point& D, Point& P) {
+bool punct_in_dreptunghi(Point &A, Point &B, Point &C, Point &D, Point &P)
+{
     return punct_in_triunghi(A, B, C, P) || punct_in_triunghi(C, D, A, P);
 }
-
 
 class Pahar : public Object
 {
@@ -37,79 +38,29 @@ public:
     double fall_acceleration;
     int fill;
 
-    Pahar(double x, double y) : centru(x, y), jump_height(0), fill(0), max_jump_speed(0.3),
-        jump_speed(0.3), fall_acceleration(0.0015), x_speed(0) { ; }
+    Pahar(double x, double y, double z) : centru(x, y, z), jump_height(0), fill(0), max_jump_speed(0.3),
+                                jump_speed(0.3), fall_acceleration(0.0015), x_speed(0) { ; }
 
     void draw()
     {
         glPushMatrix();
 
-        glTranslated(centru.getX(), centru.getY() + jump_height, 0);
-
+        glTranslated(centru.getX(), centru.getY() + jump_height, centru.getZ());
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
         glColor4f(208 / 255.0, 250 / 255.0, 249 / 255.0, 0.7);
-        glRecti(0, 0, -75, -150);
+        glRotated(90, 1.0f, 0.0f, 0.0f);
+        glutSolidCylinder(0.5f, 2.5f, 20, 1);
 
-        // bottom part
-        glColor4f(208 / 255.0, 250 / 255.0, 249 / 255.0, 1);
-        glBegin(GL_POLYGON);
-        int numSegments = 100;
-        float radiusX = 75 / 2;
-        float radiusY = 5;
-        for (int i = 0; i < numSegments; i++)
-        {
-            float theta = 2.0 * M_PI * float(i) / float(numSegments);
-            float x = radiusX * cos(theta);
-            float y = radiusY * sin(theta);
-            glVertex2f(x - 75 / 2, y);
-        }
-        glEnd();
-
-        // top part
-        glBegin(GL_POLYGON);
-        numSegments = 100;
-        radiusX = 75 / 2;
-        radiusY = 10;
-        for (int i = 0; i < numSegments; i++)
-        {
-            float theta = 2.0 * M_PI * float(i) / float(numSegments);
-            float x = radiusX * cos(theta);
-            float y = radiusY * sin(theta);
-            glVertex2f(x - 75 / 2, y - 150);
-        }
-        glEnd();
-
-
-        if (this->fill) {
-
-            glColor4f(1.0, 1.0, 1.0, 0.93);
-
-            glBegin(GL_POLYGON);
-            numSegments = 100;
-            radiusX = 75 / 2 - 5;
-            radiusY = 5;
-            for (int i = 0; i < numSegments; i++)
-            {
-                float theta = 2.0 * M_PI * float(i) / float(numSegments);
-                float x = radiusX * cos(theta);
-                float y = radiusY * sin(theta);
-                glVertex2f(x - 75 / 2, y - 150);
-            }
-            glEnd();
-
-              for (int i = 0; i < this->fill; i++)
-            {
-               glRecti(-5, 0 + (i * 15) - 150, -70, 15 + (i * 15) - 150);
-            }
-       
-        }
         glPopMatrix();
     }
 
     void update()
     {
-        if (jump_height <= 0) {
+        /*
+        if (jump_height <= 0)
+        {
             jump_speed = max_jump_speed;
             jump_height = 0;
         }
@@ -124,19 +75,23 @@ public:
 
         centru.setX(centru.getX() + x_speed * delta_time);
 
-        if (centru.getX() < 50) {
+        if (centru.getX() < 50)
+        {
             centru.setX(50);
         }
 
-        if (centru.getX() > Screen::get_width()) {
+        if (centru.getX() > Screen::get_width())
+        {
             centru.setX(Screen::get_width());
-        }
+        }*/
     }
 
     void mouse(int button, int state, int x, int y) { ; }
 
-    void keyPress(int key, int x, int y) {
-        switch (key) {
+    void keyPress(int key, int x, int y, int z)
+    {
+        switch (key)
+        {
         case GLUT_KEY_LEFT:
             x_speed = -0.2 - 0.02 * Scene::lvl;
             break;
@@ -149,11 +104,12 @@ public:
     };
     void keyUp(int key, int x, int y) { ; };
 
-    bool contine_punct(Point punct) {
-        Point A(0 + centru.getX(), 0 + centru.getY() + jump_height);
-        Point B(0 + centru.getX(), -150 + centru.getY() + jump_height);
-        Point C(-75 + centru.getX(), -150 + centru.getY() + jump_height);
-        Point D(-75 + centru.getX(), 0 + centru.getY() + jump_height);
+    bool contine_punct(Point punct)
+    {
+        Point A(0 + centru.getX(), 0 + centru.getY() + jump_height, 0);
+        Point B(0 + centru.getX(), -150 + centru.getY() + jump_height, 0);
+        Point C(-75 + centru.getX(), -150 + centru.getY() + jump_height, 0);
+        Point D(-75 + centru.getX(), 0 + centru.getY() + jump_height, 0);
         return punct_in_dreptunghi(A, B, C, D, punct);
     }
 };

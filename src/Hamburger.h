@@ -18,7 +18,7 @@ public:
     Point centru;
     double angle;
 
-    Hamburger(double x, double y) : centru(x, y), angle(0) { ; }
+    Hamburger(double x, double y, double z) : centru(x, y, z), angle(0) { ; }
 
     void draw()
     {

@@ -19,7 +19,8 @@
 #include "Healthbar.h"
 using namespace std;
 
-bool game_loop() {
+bool game_loop()
+{
     Scene::get_object("cows");
     return true;
 }
@@ -30,24 +31,21 @@ void main(int argc, char **argv)
     Cow::init();
     init();
 
-    shared_ptr<Healthbar> hbar = make_shared<Healthbar>(Healthbar(30, 550));
-    /*
-    shared_ptr<Strada> strada = make_shared<Strada>(Strada(0));
+    shared_ptr<Healthbar> hbar = make_shared<Healthbar>(Healthbar(30, 550, 0));
 
-    shared_ptr<Cows> cows = make_shared<Cows>(Cows());
-    // shared_ptr<Line> line1 = make_shared<Line>(Line(Screen::get_width() / 2, 0, Screen::get_width() / 2, Screen::get_height() / 2));
+    // shared_ptr<Strada> strada = make_shared<Strada>(Strada(0));
 
+    // shared_ptr<Cows> cows = make_shared<Cows>(Cows());
+    // // shared_ptr<Line> line1 = make_shared<Line>(Line(Screen::get_width() / 2, 0, Screen::get_width() / 2, Screen::get_height() / 2));
 
+    shared_ptr<Pahar> pahar = make_shared<Pahar>(Pahar(0, 0, -5));
+    // shared_ptr<Cow> cow1 = make_shared<Cow>(Cow(150, 150, 0, 1, 1, 1, false, 5));
+    // shared_ptr<Cow> cow2 = make_shared<Cow>(Cow(450, 450, 0, 0, 0, 0, true, 10));
 
-    shared_ptr<Pahar> pahar = make_shared<Pahar>(Pahar(435, 200));
-    shared_ptr<Cow> cow1 = make_shared<Cow>(Cow(150, 150, 0, 1, 1, 1, false, 5));
-    shared_ptr<Cow> cow2 = make_shared<Cow>(Cow(450, 450, 0, 0, 0, 0, true, 10));
-
-    Scene::add_object("strada", strada);
-    Scene::add_object("tcows", cows);
+    // Scene::add_object("strada", strada);
+    // Scene::add_object("tcows", cows);
     Scene::add_object("zahar", pahar);
 
-    */
     Scene::add_object("zzz", hbar);
 
     glutDisplayFunc(Scene::draw);

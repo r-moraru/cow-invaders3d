@@ -25,10 +25,10 @@ public:
     vector<Hamburger> hp; 
     int scor;
 
-    Healthbar(double x, double y) : centru(x, y), scor(0) {
-        Hamburger hamburger1 = Hamburger(x, y);
-        Hamburger hamburger2 = Hamburger(x + 50 , y);
-        Hamburger hamburger3 = Hamburger(x + 100, y);
+    Healthbar(double x, double y, double z) : centru(x, y, z), scor(0) {
+        Hamburger hamburger1 = Hamburger(x, y, 0);
+        Hamburger hamburger2 = Hamburger(x + 50 , y, 0);
+        Hamburger hamburger3 = Hamburger(x + 100, y, 0);
 
         hp.push_back(hamburger1);
         hp.push_back(hamburger2);

@@ -85,7 +85,7 @@ public:
 
 		last_spawn = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
 
-		cows.push_back(Cow(spawn_pos, Screen::get_height()+100.0, 0,
+		cows.push_back(Cow(spawn_pos, Screen::get_height()+100.0,0, 0,
 			(rand() % 100) / 99.0, (rand() % 100) / 99.0, (rand() % 100) / 99.0,
 			rand() % 4 == 0 ? true : false, rand() % 4 + 3));
 	}
