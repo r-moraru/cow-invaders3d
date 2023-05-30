@@ -59,13 +59,12 @@ void init(void)
     glMatrixMode(GL_MODELVIEW);
 
     glEnable(GL_FOG);
-    GLfloat fogColor[] = { 0.5, 0.5, 0.5, 0.1 };
+    GLfloat fogColor[] = { 1, 1, 1, 0.1 };
     glFogfv(GL_FOG_COLOR, fogColor);
     glFogi(GL_FOG_MODE, GL_EXP);
-    glFogf(GL_FOG_DENSITY, 0.05f);
-    glFogf(GL_FOG_START, 60.0f);
-    glFogf(GL_FOG_END, 150.0f);
-
+    glFogf(GL_FOG_DENSITY, 0.01f);
+    glFogf(GL_FOG_START, 100.0f);
+    glFogf(GL_FOG_END, 2000.0f);
 }
 
 void reshape(int w, int h)

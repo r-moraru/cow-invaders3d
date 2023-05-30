@@ -14,6 +14,25 @@
 #include "Screen.h"
 using namespace std;
 
+void LoadTexture(void)
+{
+    GLuint texture;
+    glGenTextures(1, &texture);
+    glBindTexture(GL_TEXTURE_2D, texture);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);	// Set texture wrapping to GL_REPEAT
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    int width, height;
+    unsigned char* image = SOIL_load_image("nt.jpg", &width, &height, 0, SOIL_LOAD_RGB);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+    // SOIL_free_image_data(image);
+    // glBindTexture(GL_TEXTURE_2D, 0);
+
+}
+
 class Scene
 {
 private:
@@ -48,35 +67,24 @@ public:
 
     static void drawSky(void) {
         
+        double skyboxSize = -70.0;
+        
         glPushMatrix();
-        // Enable/Disable features
-        glPushAttrib(GL_ENABLE_BIT);
-        glEnable(GL_TEXTURE_2D);
-        glDisable(GL_DEPTH_TEST);
-        glDisable(GL_LIGHTING);
-        glDisable(GL_BLEND);
+        glRotated(180, 1, 0, 0);
+        glColor3f(0, 0, 0);
+        GLfloat culoare_bg[] = { 1.0, 1.0, 1.0, 1 };
 
-        // Enable texture filtering
-        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-        float skyboxSize = 10.0f;
-
-        // Render the front quad
-        glBindTexture(GL_TEXTURE_2D, background);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+        glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, culoare_bg);
+        glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, culoare_bg);
         glBegin(GL_QUADS);
-        glTexCoord2f(0.0f, 1.0f); glVertex3f(skyboxSize + Scene::camera_x_pos, -skyboxSize, -skyboxSize);
-        glTexCoord2f(1.0f, 1.0f); glVertex3f(-skyboxSize + Scene::camera_x_pos, -skyboxSize, -skyboxSize);
-        glTexCoord2f(1.0f, 0.0f); glVertex3f(-skyboxSize + Scene::camera_x_pos, skyboxSize, -skyboxSize);
-        glTexCoord2f(0.0f, 0.0f); glVertex3f(skyboxSize + Scene::camera_x_pos, skyboxSize, -skyboxSize);
+        glTexCoord2f(1.0f, 1.0f); glVertex3f(-skyboxSize + Scene::camera_x_pos, 0, -skyboxSize);
+        glTexCoord2f(1.0f, 0.0f); glVertex3f(-skyboxSize + Scene::camera_x_pos, skyboxSize/3, -skyboxSize);
+        glTexCoord2f(0.0f, 0.0f); glVertex3f(skyboxSize + Scene::camera_x_pos, skyboxSize/3, -skyboxSize);
+        glTexCoord2f(0.0f, 1.0f); glVertex3f(skyboxSize + Scene::camera_x_pos, 0, -skyboxSize);
         glEnd();
 
-
-        // Restore enable bits and matrix
-        glPopAttrib();
         glPopMatrix();
+        glFlush();
     }
 
     static void draw(void)

@@ -30,6 +30,8 @@ void main(int argc, char **argv)
     glutInit(&argc, argv);
     init();
 
+    LoadTexture();
+
     shared_ptr<Healthbar> hbar = make_shared<Healthbar>(Healthbar(-0.35, 2.5, 2));
 
     shared_ptr<Strada> strada = make_shared<Strada>(Strada(0));
@@ -59,13 +61,7 @@ void main(int argc, char **argv)
 
     glEnable(GL_DEPTH_TEST);
 
-    Scene::background = SOIL_load_OGL_texture
-    (
-        "background.png",
-        SOIL_LOAD_RGBA,
-        SOIL_CREATE_NEW_ID,
-        SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_MIPMAPS
-    );
+    
 
     glutMainLoop();
 }
