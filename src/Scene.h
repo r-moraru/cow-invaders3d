@@ -98,6 +98,8 @@ public:
 
             glEnable(GL_LIGHTING);
             glEnable(GL_LIGHT0);
+            GLfloat light_position[] = { 0.0, 100.0, 100.0, 0.0 };
+            glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 
             for (auto& object : objects)
             {
@@ -175,7 +177,7 @@ public:
 
 
 map<string, shared_ptr<Object>> Scene::objects;
-double Scene::movement_speed = 0.25;
+double Scene::movement_speed = 0.005;
 bool Scene::playing = TRUE;
 int Scene::lvl = 1;
 double Scene::camera_x_pos = 0;

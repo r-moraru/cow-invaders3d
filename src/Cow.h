@@ -38,18 +38,79 @@ public:
 
 	void draw()
 	{
-		glPushMatrix();
-		glColor3f(culoareR, culoareG, culoareB);
 
-		glTranslated(centru.getX(), centru.getY(), centru.getZ());
-		glScalef(0.25, 0.5, 1);
+		GLfloat culoare_primita[] = { 1, 1, 1, 0.5 };
+		GLfloat culoare_negru[] = { 0, 0, 0, 1 };
+		GLfloat culoare_rosu[] = { 1.0, 0.0, 0.0, 0.1 };
+
+		glPushMatrix();
+		glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, culoare_primita);
+		glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, culoare_primita);
+		glColor3f(1, 1, 1);
+		//body
+		glTranslated(centru.getX(), centru.getY() + 0.4, centru.getZ());
+		glScalef(0.3, 0.4, 1);
 		glutSolidCube(marime);
 		glPopMatrix();
-
+		//head
 		glPushMatrix();
-		glColor3f(culoareR, 0, culoareB);
-		glTranslated(centru.getX(), centru.getY() + 0.25, centru.getZ() + 0.6);
-		glScalef(0.1, 0.1, 0.2);
+		glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, culoare_negru);
+		glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, culoare_negru);
+		glTranslated(centru.getX(), centru.getY() + 0.65, centru.getZ() + 0.6);
+		glScalef(0.2, 0.2, 0.4);
+		glutSolidCube(marime);
+
+		glPopMatrix();
+		
+		//legs 1
+		glPushMatrix();
+		glColor3f(0, 0, 0);
+		glTranslated(centru.getX() - 0.1, centru.getY(), centru.getZ() - 0.4);
+		glScalef(0.1, 0.4, 0.2);
+		glutSolidCube(marime);
+
+		glPopMatrix();
+		//legs 2
+		glPushMatrix();
+		glColor3f(0, 0, 0);
+		glTranslated(centru.getX() - 0.1, centru.getY(), centru.getZ() + 0.4);
+		glScalef(0.1, 0.4, 0.2);
+		glutSolidCube(marime);
+
+		glPopMatrix();
+
+		glPopMatrix();
+		//legs 3
+		glPushMatrix();
+		glColor3f(0, 0, 0);
+		glTranslated(centru.getX() + 0.1, centru.getY(), centru.getZ() + 0.4);
+		glScalef(0.1, 0.4, 0.2);
+		glutSolidCube(marime);
+
+		glPopMatrix();
+
+		glPopMatrix();
+		//legs 4
+		glPushMatrix();
+		glColor3f(0, 0, 0);
+		glTranslated(centru.getX() + 0.1, centru.getY(), centru.getZ() - 0.4);
+		glScalef(0.1, 0.4, 0.2);
+		glutSolidCube(marime);
+
+		glPopMatrix();
+
+		//horns 1
+		glPushMatrix();
+		if (ochi_rosu) {
+			glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, culoare_rosu);
+			glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, culoare_rosu);
+		}
+		else {
+			glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, culoare_primita);
+			glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, culoare_primita);
+		}
+		glTranslated(centru.getX(), centru.getY() + 0.85, centru.getZ() + 0.6);
+		glScalef(0.1, 0.1, 0.1);
 		glutSolidCube(marime);
 
 		glPopMatrix();
@@ -57,15 +118,15 @@ public:
 
 	void update()
 	{
-		/*
+		
 		using namespace std::chrono;
 		uint64_t current_time = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
 		uint64_t delta_time = current_time - last_update;
 		last_update = current_time;
 
 		double delta_y = Scene::get_movement_speed() * delta_time;
-		centru.setY(centru.getY() - delta_y);
-		*/
+		centru.setZ(centru.getZ() + delta_y);
+		
 	}
 
 	Point get_pos()
